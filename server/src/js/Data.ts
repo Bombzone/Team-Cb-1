@@ -13,18 +13,19 @@ const cards: Card[] = [
     new Card(100)
 ]
 let getCards = (): Card[] => {
-    return cards
+    return cards;
 }
 let getCard = (id: number): Card | undefined => {
-    return cards.find((card) => card.getValue() === id)
+    return cards.find((card) => card.getValue() === id);
 }
 const storyQueue: UserStory[] = [
-    new UserStory("Current User Story"),
     new UserStory("User Story #1"),
     new UserStory("User Story #2"),
     new UserStory("User Story #3"),
     new UserStory("User Story #4"),
     new UserStory("User Story #5"),
+    new UserStory("User Story #6"),
+
 ]
 let getStoryQueue = (): UserStory[] => {
     return storyQueue;

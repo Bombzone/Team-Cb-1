@@ -24,7 +24,7 @@ app.get("/api/storyQueue", (inRequest: Request, inResponse: Response) => {
     inResponse.type("json");
     inResponse.json(getStoryQueue());
 });
-app.get("/api/estimations", (inRequest: Request, inResponse:Response) => {
+app.get("/api/estimations", (inRequest: Request, inResponse: Response) => {
     inResponse.type("json");
     inResponse.json(getEstimations());
 })
@@ -34,13 +34,13 @@ app.get("/02beb6f43de7e44d0a24.ttf", (inRequest: Request, inResponse: Response) 
 app.get("/main.js", (inRequest: Request, inResponse: Response) => {
     inResponse.sendFile(path.join(__dirname, "../../../client/dist/main.js"));
 });
-
-app.get("/*", (inRequest: Request, inResponse: Response) => {
-    inResponse.sendFile(path.join(__dirname, "../../../client/dist/index.html"));
-});
 app.post("/api/estimations", (inRequest: Request, inResponse: Response) => {
     inResponse.type("json");
     inResponse.json(inRequest.body);
     console.log(inRequest.body);
 });
+app.get("/*", (inRequest: Request, inResponse: Response) => {
+    inResponse.sendFile(path.join(__dirname, "../../../client/dist/index.html"));
+});
+
 app.listen(port, () => { console.log("Server listening on port: " + port) });
