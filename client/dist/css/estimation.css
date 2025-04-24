@@ -125,17 +125,6 @@ header>a {
 }
 
 /* Styles For the Current Queue */
-#currentDelete {
-    background-color: white;
-    border: 4px navy solid; 
-    color: navy;
-    padding: 5px, 5px;
-    border-radius: 4px;
-    font-size: 18px;
-    margin-left: 20px;
-    margin-top: -5px;
-}
-
 #root > #currentQueue {
     position: relative;
     grid-row: 2;
@@ -316,7 +305,7 @@ li:hover svg:hover, h4:hover svg:hover {
     font-size: 30px;
     position: fixed;
     bottom: 120px;
-    left: 45px;
+    left: 40px;
 }
 
 /* .liStory {
@@ -474,7 +463,7 @@ header>a:hover,
     }
     #storyButton {
         bottom: 50px;
-        left: 30px;
+        left: 80px;
     }
     .liStory {
         left: 185px;
@@ -514,7 +503,7 @@ header>a:hover,
     } */
     }
     #storyButton {
-        left: 50px;
+        left: 120px;
     }
 
     .liStory {
