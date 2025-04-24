@@ -14,16 +14,54 @@ li button {
 .modal {
     display: flex;
     flex-direction: column;
+    max-height: 75vh;
 }
 .modal #storyDesc {
     resize: vertical;
-    max-height: 50vh;
-    min-height: fit-content;
+    height: 100px;
+    max-height: 40vh;
+    /* min-height: fit-content; */
+    margin-left: 20px;
+    margin-right: 20px;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: 2px 2px 1px navy;
 }
 .modal #storyName {
     resize: none;
+    /* min-height: 20px; */
+    height: 40px;
+    max-height: 50vh;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: 2px 2px 1px navy;
 }
+
+.modal #finishedButton {
+    background-color: white;
+    border: 3px navy solid; 
+    color: navy;
+    padding: 15px, 25px;
+    border-radius: 4px;
+    /* text-align: center; */
+    font-size: 25px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /* Body Styles */
+.popup-content {
+    /* background-color: transparent; */
+    box-shadow: 3px 3px navy;
+    border-radius: 25px;
+}
+
 #root {
     display: grid;
     /* grid: 1fr 9fr / 1fr 1fr 2fr 2fr 1fr 1fr; */
@@ -32,6 +70,14 @@ li button {
     background-color: white !important;
     overflow: hidden !important;
     position: relative;
+}
+
+#bottomLine {
+    height: 5vh;
+    width: 100vw;
+    position: fixed;
+    bottom: 0px;
+    z-index: 990;
 }
 
 /* Header Styles */
@@ -79,6 +125,17 @@ header>a {
 }
 
 /* Styles For the Current Queue */
+#currentDelete {
+    background-color: white;
+    border: 4px navy solid; 
+    color: navy;
+    padding: 5px, 5px;
+    border-radius: 4px;
+    font-size: 18px;
+    margin-left: 20px;
+    margin-top: -5px;
+}
+
 #root > #currentQueue {
     position: relative;
     grid-row: 2;
@@ -87,7 +144,7 @@ header>a {
     display: grid;
     grid: auto / auto;
     box-shadow: inset rgba(0, 0, 128, 0.25) 0px 0px 10px;
-    height: 85vh;
+    height: 80vh;
 }
 
 #currentQueue div {
@@ -186,7 +243,7 @@ header>a {
 #root #storyQueue {
     grid-row: 2 / span 2;
     grid-column: 1;
-    height: 85vh;
+    height: 80vh;
     box-shadow: inset rgba(0, 0, 128, 0.25) 5px 0px 10px;
     overflow-y: scroll;
     /* width: 17vw; */
@@ -224,19 +281,6 @@ h2 {
     border-radius: 10px;
 }
 
-#storyQueue li:nth-of-type(2) {
-    padding: 0px;
-    margin: 0px;
-    height: 0px;
-    /* margin-bottom: 20px;
-    margin-left: 10px;
-    border-radius: 0px;
-    text-align: center;
-    height: 0px !important;
-    border-bottom: 2px navy dashed;
-    box-shadow: none;
-    width: 100%; */
-}
 #storyButton {
     z-index: 999;
     background-color: white;
@@ -247,13 +291,28 @@ h2 {
     /* text-align: center; */
     font-size: 30px;
     position: fixed;
-    bottom: 50px;
-    left: 40px;
+    bottom: 120px;
+    left: 45px;
 }
-#storyButton:hover {
+
+#liStory {
+    z-index: 999;
+    background-color: white;
+    border: 4px navy solid; 
+    color: navy;
+    padding: 100px, 80px;
+    border-radius: 4px;
+    /* text-align: center; */
+    font-size: 30px;
+    position: fixed;
+    bottom: 50px;
+    left: 65px; 
+}
+
+#storyButton:hover, #liStory:hover, #currentDelete:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
-#storyButton:active {
+#storyButton:active, #liStory:active, #currentDelete:active {
     transform: translateY(4px);
 }
 
@@ -261,7 +320,7 @@ h2 {
 #root #estimations {
     grid-row: 2 / span 2;
     grid-column: 3;
-    height: 85vh;
+    height: 80vh;
     box-shadow: inset rgba(0, 0, 128, 0.25) -5px 0px 10px;
     overflow-y: scroll;
     /* width: 17vw; */
@@ -298,6 +357,28 @@ h2 {
     border-left: 4px solid #dc3545;
     padding: 8px;
 }
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: whitesmoke;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 128, 0.50);
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: navy;
+    border-radius: 25px;
+  }
 
 /* Action Styles */
 #storyQueue>ol>li>button:hover {
@@ -369,7 +450,11 @@ header>a:hover,
     } */
     }
     #storyButton {
-        left: 80px;
+        bottom: 50px;
+        left: 30px;
+    }
+    #liStory {
+        left: 185px;
     }
     #currentQueue>div>h4 {
         width: calc(50%);
@@ -406,7 +491,11 @@ header>a:hover,
     } */
     }
     #storyButton {
-        left: 120px;
+        left: 50px;
+    }
+
+    #liStory {
+        left: 245px;
     }
     #currentQueue>div>h4 {
         width: calc(40%);
