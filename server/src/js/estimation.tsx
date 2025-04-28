@@ -30,7 +30,7 @@ const Estimation = () => { // returns Estimation page
         <CurrentQueue storyQueue={storyQueue} cards={cards} />
         <StQueue storyQueue={storyQueue} />
         <Estimations estimations={estimations} />
-        {/* <div id="bottomLine"></div> */}
+        <div id="bottomLine"></div>
     </>)
 }
 const Player = (props: { name: string, id: string, points: string}) => {
