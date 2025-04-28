@@ -1,9 +1,68 @@
-/* Common Estimation Styles */
+#root .player {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: start;
+    width: 150px;
+    height: 80px;
+
+}
+#root #players {
+    position: fixed;
+    transform: translate(-50%);
+    left: 50%;
+    top: 40%;
+    width: 100%;
+    border: none;
+}
+#root #players div {
+    border: none;
+}
+#root #players #player1 {
+    position: absolute;
+    transform: translateX(-50%) translateY(70px);
+    left: 50%;
+    top: 50%;
+}
+#root #players #player2 {
+    position: absolute;
+    transform: translateX(-50%) translateY(-125px);
+    left: 50%;
+    top: 50%;
+}
+#root #players #player3 {
+    position: absolute;
+    transform: translateX(calc(75px - 50%)) translateY(calc(-35px - 47.5px));
+    left: 50%;
+    top: 50%;
+}#root #players #player4 {
+    position: absolute;
+    transform: translateX(calc(-75px - 50%)) translateY(calc(-35px - 47.5px));
+    left: 50%;
+    top: 50%;
+}#root #players #player5 {
+    position: absolute;
+    transform: translateX(calc(-75px - 50%)) translateY(calc(-35px + 47.5px));
+    left: 50%;
+    top: 50%;
+}
+#root #players #player6 {
+    position: absolute;
+    transform: translateX(calc(75px - 50%)) translateY(calc(-35px + 47.5px));
+    left: 50%;
+    top: 50%;
+}
+#root .player svg {
+    width: 50px;
+    height: 50px;
+}
+    /* Common Estimation Styles */
 li .estButton {
     font-size: 1.25rem;
     background-color: rgba(211, 211, 211, 0.211);
     margin: 0px;
-    width: 60px;
+    width: 75px;
     height: 75px;
     padding: 0px;
     border-radius: 10px;
@@ -133,7 +192,7 @@ header>a {
     display: grid;
     grid: auto / auto;
     box-shadow: inset rgba(0, 0, 128, 0.25) 0px 0px 10px;
-    height: 80vh;
+    height: 85vh;
 }
 
 #currentQueue div {
@@ -144,7 +203,7 @@ header>a {
     /* width: calc(); */
     display: grid;
     grid: auto / 1.3fr 1.75fr;
-    height: 65px;
+    height: 70px;
     /* padding-bottom: 10px; */
     border-bottom: 1px navy solid;
     overflow-wrap: break-word;
@@ -190,7 +249,7 @@ header>a {
     justify-content: center; */
     /* gap: 30px;*/  
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
     justify-items: center;
     align-items: center;
     overflow-wrap: anywhere;
@@ -212,18 +271,25 @@ header>a {
     display: flex;
 }
 
-#currentQueue>h4 {
+#currentQueue #avg {
+    position: fixed;
+    transform: translateX(-50%);
+    left: 50%;
+    top: 40%;
     grid-row: 2;
     width: 40px;
-    padding: 40px 20px;
-    background-color: rgba(211, 211, 211, 0.211);
+    height: 40px;
+    padding: 30px;
+    padding-top: 35px;
+    padding-bottom: 25px;
+    background-color: rgba(211, 211, 211, 0.889);
     text-align: center;
-    margin: auto;
-    border-radius: 10px;
+    margin: 0;
+    border-radius: 50%;
 }
 
 #currentQueue img {
-    padding-top: 65px;
+    padding-top: 70px;
     width: 100%;  
     height: auto;
 }
@@ -232,7 +298,7 @@ header>a {
 #root #storyQueue {
     grid-row: 2 / span 2;
     grid-column: 1;
-    height: 80vh;
+    height: 85vh;
     box-shadow: inset rgba(0, 0, 128, 0.25) 5px 0px 10px;
     overflow-y: scroll;
     /* width: 17vw; */
@@ -318,7 +384,7 @@ li:hover svg:hover, h4:hover svg:hover {
     font-size: 30px;
     position: fixed;
     bottom: 50px;
-    left: 65px; 
+    left: 70px; 
 } */
 
 #storyButton:hover {
@@ -332,7 +398,7 @@ li:hover svg:hover, h4:hover svg:hover {
 #root #estimations {
     grid-row: 2 / span 2;
     grid-column: 3;
-    height: 80vh;
+    height: 85vh;
     box-shadow: inset rgba(0, 0, 128, 0.25) -5px 0px 10px;
     overflow-y: scroll;
     /* width: 17vw; */
