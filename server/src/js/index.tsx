@@ -5,13 +5,12 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import JoinRoom, { CreateRoom } from "./home";
 import { useEffect, useState } from "react";
 const App = () => { // displays page based on functions and url
-    
-    const [uid, setUid] = useState("");
-    const [Name, setName] = useState("");
+
+	const [uid, setUid] = useState("");
+	const [Name, setName] = useState("");
 	const [clickUid, setClickUid] = useState("");
 	const [allClick, setallClick] = useState("");
-    const [ws, setWs] = useState({} as WebSocket);
-	let connectedUsers: any = {};
+	const [ws, setWs] = useState({} as WebSocket);
 
 	let connection: WebSocket;
 	if (window.location.protocol == "https:") {
@@ -19,15 +18,15 @@ const App = () => { // displays page based on functions and url
 	} else {
 		connection = new WebSocket(`ws://${window.location.host.split(":")[0]}:3030`);
 	}
-    useEffect(() => {
-        connection.onopen = () => {
+	useEffect(() => {
+		connection.onopen = () => {
 			console.log("connection opened to the server...");
 		};
 		// Handle error
 		connection.onerror = () => {
-			console.log("WS error");
+			console.error("WS error");
 		};
-        // Handle server message
+		// Handle server message
 		connection.onmessage = (inMessage: any) => {
 			console.log(inMessage.data);
 			// Split message into underscores
@@ -36,7 +35,7 @@ const App = () => { // displays page based on functions and url
 			const messageType = messageParts[0];
 			switch (messageType) {
 				case "connected":
-                    const storedUID = localStorage.getItem("UID")
+					const storedUID = localStorage.getItem("UID")
 					if (storedUID == null) {
 						localStorage.setItem("UID", messageParts[1]);
 						setUid(messageParts[1]);
@@ -48,35 +47,39 @@ const App = () => { // displays page based on functions and url
 				case "estimated":
 					setallClick(messageParts[1]);
 					break;
-                case "name":
-                    const storedName = localStorage.getItem("name")
+				case "name":
+					const storedName = localStorage.getItem("name")
 					if (storedName == null) {
 						setName("Unspecified");
 					} else {
 						setName(storedName);
 					}
 					break;
+				case "refresh":
+					window.location.reload();
+					break;
 				default:
-                    
+
 					break;
 			}
 		};
 		setWs(connection);
-    },[]);
+	}, []);
 
-	const sendMessage = (message:string) => {
+	const sendMessage = (message: string) => {
 		console.log(`WS message sent: ${message}`);
 		ws.send(message);
 	};
 
-    return (
-        <BrowserRouter>
-            <Routes>
-            <Route path="/" element={<JoinRoom sendMessage={sendMessage} />} />
-                    <Route path="/create-room" element={<CreateRoom sendMessage={sendMessage}/>} />
-                    <Route path="/estimate" element={<Estimation connection={ws} sendMessage={sendMessage} />} />            </Routes>
-        </BrowserRouter>
-    )
+	return (
+		<BrowserRouter>
+			<Routes>
+				<Route path="/" element={<JoinRoom sendMessage={sendMessage} />} />
+				<Route path="/create-room" element={<CreateRoom sendMessage={sendMessage} />} />
+				<Route path="/estimate" element={<Estimation sendMessage={sendMessage} />} />
+            </Routes>
+		</BrowserRouter>
+	)
 };
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 root.render(<App />);

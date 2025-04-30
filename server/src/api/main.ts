@@ -4,7 +4,6 @@ import express, { Express, NextFunction, Request, Response } from "express"
 import { UserStory } from "../js/UserStory";
 import { CardDataAccess, EstimatedStoryDataAccess, StoryDataAccess } from "../db/dataAccess";
 import { Card } from "../js/Cards";
-import { HttpStatusCode } from "axios";
 import WebSocket from "ws";
 import User from "../js/User";
 
@@ -17,7 +16,11 @@ const RESTfulPort = 8080;
 const wsServer = new WebSocket.Server({ port: WSPort }, () => {
     console.log("This sever is servething! Huzzah!");
 });
-
+let refreshClients = () => {
+    wsServer.clients.forEach((inClient: WebSocket) => {
+        inClient.send("refresh");
+    })
+}
 
 let users: User[] = new Array();
 let consensus = (index: number) => {
@@ -94,6 +97,7 @@ wsServer.on("connection", (socket: WebSocket) => {
                     }
                 });
                 voted();
+                refreshClients();
                 break;
             case "addUser":
                 //if everyone clicked the same card then that value should be returned to all users
@@ -109,6 +113,11 @@ wsServer.on("connection", (socket: WebSocket) => {
                         users.splice(i, 1);
                     }
                 })
+                refreshClients();
+                break;
+                
+            default:
+
                 break;
         }
     })
@@ -157,6 +166,7 @@ app.post("/api/deleteStory", async (inRequest: Request, inResponse: Response) =>
     inResponse.type("json");
     const story: UserStory = inRequest.body;
     const numberRemoved: number = await StoryDataAccess.getDataAccess().removeStory(story);
+    refreshClients();
 })
 app.get("/02beb6f43de7e44d0a24.ttf", (inRequest: Request, inResponse: Response) => {
     inResponse.sendFile(path.join(__dirname, "../../../client/dist/02beb6f43de7e44d0a24.ttf"));
@@ -173,6 +183,7 @@ app.post("/api/storyQueue/", async (inRequest: Request, inResponse: Response) =>
     const initStory: UserStory = inRequest.body;
     const story: UserStory = await StoryDataAccess.getDataAccess().addStory(new UserStory(initStory.name, initStory.description, storyCount + ""))
     storyCount++;
+    refreshClients();
     inResponse.json(story);
 });
 app.post("/api/setStoryID", async (inRequest: Request, inResponse: Response) => {
@@ -180,6 +191,7 @@ app.post("/api/setStoryID", async (inRequest: Request, inResponse: Response) => 
     const initID: number = inRequest.body[0];
     const newID: number = inRequest.body[1];
     const story: UserStory | undefined = await StoryDataAccess.getDataAccess().updateID(initID, newID);
+    refreshClients();
     inResponse.json(story);
-})
+});
 app.listen(RESTfulPort, () => { console.log("Server at: http://localhost:" + RESTfulPort) });
