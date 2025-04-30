@@ -69,7 +69,7 @@ class StoryDataAccess {
 
     public async saveStory(story: UserStory): Promise<UserStory> {
         return await this.db
-            .updateAsync({name: story.name }, story).then(() => {
+            .updateAsync({id: story.id}, story).then(() => {
                 return story;
             });
     }
