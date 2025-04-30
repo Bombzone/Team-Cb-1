@@ -31,7 +31,7 @@ app.get("/api/storyQueue", async (inRequest: Request, inResponse: Response) => {
 app.get("/api/estimations", async (inRequest: Request, inResponse: Response) => {
     inResponse.type("json");
     const stories: UserStory[] = await EstimatedStoryDataAccess.getDataAccess().getStories();
-
+    stories.forEach(story => { if (parseInt(story.id!) > storyCount) storyCount = parseInt(story.id!) + 1 })
     inResponse.json(stories);
 })
 app.post("/api/deleteStory", async (inRequest: Request, inResponse: Response) => {
