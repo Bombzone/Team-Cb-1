@@ -25,17 +25,51 @@ class StoryDataAccess {
     }
 
 
-    public async getStory(ID: string): Promise<UserStory> {
-        return await this.db.findOneAsync({ _id: ID });
+    public async getStory(ID: number): Promise<UserStory> {
+        return await this.db.findOneAsync({ id: ID });
     }
     public async getStories(): Promise<UserStory[]> {
         return await this.db.findAsync({});
     }
 
+    public async updateID(prevID: number, ID: number): Promise<UserStory> {
+        let currentStory: UserStory;
+        currentStory = await this.db.findOneAsync({ id: prevID })
+        if (currentStory === null) {
+            console.log("unable to find userstory");
+            return await new UserStory();
+        }
+        currentStory = new UserStory(currentStory.name, currentStory.description, currentStory.id)
+        
+        if (ID > prevID) {
+            currentStory.setID(ID + "");
+            for (let currentID = ID; currentID > prevID; (currentID--)) {                
+                let newStory: UserStory = await this.db.findOneAsync({ id: currentID + "" });
+                if (newStory) {
+                    newStory = new UserStory(newStory.name, newStory.description, newStory.id)
+                    newStory.setID("" + (Number.parseInt(currentID + "") - 1));
+                    await this.saveStory(newStory);
+                }
+            }
+        } else if (ID < prevID) {
+            currentStory.setID(ID + "");
+            for (let currentID = ID; currentID <= prevID; (currentID++)) {
+                let newStory: UserStory = await this.db.findOneAsync({ id: currentID + "" });
+                if (newStory) {
+                    newStory = new UserStory(newStory.name, newStory.description, newStory.id)
+                    newStory.setID("" +( Number.parseInt(currentID + "") + 1));
+                    await this.saveStory(newStory);
+                }
+            }
+        }
+        
+        return await this.saveStory(currentStory);
+
+    }
 
     public async saveStory(story: UserStory): Promise<UserStory> {
         return await this.db
-            .updateAsync({ _id: story._id }, story).then(() => {
+            .updateAsync({name: story.name }, story).then(() => {
                 return story;
             });
     }

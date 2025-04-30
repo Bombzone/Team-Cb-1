@@ -33,7 +33,7 @@ const Estimation = () => { // returns Estimation page
         {/* <div id="bottomLine"></div> */}
     </>)
 }
-const Player = (props: { name: string, id: string, points: string}) => {
+const Player = (props: { name: string, id: string, points: string }) => {
     return (
         <div className="player" id={props.id}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
@@ -56,7 +56,7 @@ const Table = () => {
     if (numPoints > 0) {
         average = totalPoints / numPoints
     }
-    let players: string[][] = [["Player 1", ""], ["Player 2",""], ["Player 3",""], ["Player 4",""], ["Player 5",""], ["Player 6",""]]
+    let players: string[][] = [["Player 1", ""], ["Player 2", ""], ["Player 3", ""], ["Player 4", ""], ["Player 5", ""], ["Player 6", ""]]
     return (
         <>
             <h4 id="avg">{average}</h4>
@@ -137,7 +137,7 @@ const StQueue = (props: { storyQueue: UserStoryQueue }) => { // returns the stor
             response.data.forEach((story: any) => {
                 storyQueue.addStory(new UserStory(story.name, story.description, story.id))
             })
-            storyQueue.getStories().sort((a, b) => a.id! - b.id!);
+            storyQueue.getStories().sort((a, b) => parseInt(a.id!) - parseInt(b.id!));
         })
     }, [])
     const List = () => { // returns a list of stories for storyqueue
@@ -163,9 +163,10 @@ const StQueue = (props: { storyQueue: UserStoryQueue }) => { // returns the stor
         </aside>
     )
 }
+let storyID = "";
 const Story = (props: { story: UserStory | undefined; list: boolean }) => { // returns a single story to be listed on the storyQueue
     let story: UserStory;
-    if (props.story !== undefined) {
+    if (props.story != undefined) {
         story = new UserStory(props.story.toString(), props.story.description, props.story.id!);
         storyQueue.addStory(story)
         const deleteStory = () => {
@@ -173,11 +174,19 @@ const Story = (props: { story: UserStory | undefined; list: boolean }) => { // r
         }
         if (props.list) {
             return (
-                <li className="deleteParent">
-                    {story.toString()}
-                    <button className="liStory" onClick={deleteStory}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                        <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
-                    </svg></button>
+                <li className="deleteParent" onDragOver={(e) => {
+                    e.preventDefault();
+                }}>
+                    <div className="draggable" draggable id={"" + story.id} onDragStart={(e) => {
+                        storyID = e.currentTarget.id
+                    }} onDrop={(e) => {
+                        fetch.post("setStoryID", [storyID, e.currentTarget.id])
+                    }}>
+                        {story.toString()}
+                        <button className="liStory" onClick={deleteStory}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
+                        </svg></button>
+                    </div>
                 </li>
             )
         } else {
@@ -207,7 +216,7 @@ const Estimations = (props: { estimations: UserStoryQueue }) => { // returns alr
                 estimations.addStory(new UserStory(story.name, story.description, story.id, story.storyValues))
             }
             )
-            estimations.getStories().sort((a, b) => a.id! - b.id!)
+            estimations.getStories().sort((a, b) => parseInt(a.id!) - parseInt(b.id!))
         })
     }, [])
     const Estimation = (props: { userStory: UserStory | undefined }) => { // returns an already estimated story

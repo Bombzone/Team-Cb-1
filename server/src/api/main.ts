@@ -25,7 +25,7 @@ app.get("/api/cards", async (inRequest: Request, inResponse: Response) => {
 app.get("/api/storyQueue", async (inRequest: Request, inResponse: Response) => {
     inResponse.type("json");
     const stories: UserStory[] = await StoryDataAccess.getDataAccess().getStories();
-    stories.forEach(story => { if (story.id! > storyCount) storyCount = story.id! + 1 })
+    stories.forEach(story => { if (parseInt(story.id!) > storyCount) storyCount = parseInt(story.id!) + 1 })
     inResponse.json(stories);
 });
 app.get("/api/estimations", async (inRequest: Request, inResponse: Response) => {
@@ -52,7 +52,7 @@ app.get("/*", (inRequest: Request, inResponse: Response) => {
 app.post("/api/estimations", async (inRequest: Request, inResponse: Response) => {
     inResponse.type("json");
     const stories = await StoryDataAccess.getDataAccess().getStories();
-    stories.sort((a, b) => a.id! - b.id!);
+    stories.sort((a, b) => parseInt(a.id!) - parseInt(b.id!));
     const story = stories[0];
     if (story != null) {
         story.storyValues = (inRequest.body.value);
@@ -68,8 +68,15 @@ app.post("/api/estimations", async (inRequest: Request, inResponse: Response) =>
 app.post("/api/storyQueue/", async (inRequest: Request, inResponse: Response) => {
     inResponse.type("json");
     const initStory: UserStory = inRequest.body;
-    const story: UserStory = await StoryDataAccess.getDataAccess().addStory(new UserStory(initStory.name, initStory.description, storyCount))
+    const story: UserStory = await StoryDataAccess.getDataAccess().addStory(new UserStory(initStory.name, initStory.description, storyCount+""))
     storyCount++;
     inResponse.json(story);
 });
+app.post("/api/setStoryID", async (inRequest: Request, inResponse: Response) => {
+    inResponse.type("json");
+    const initID: number = inRequest.body[0];
+    const newID: number = inRequest.body[1];
+    const story: UserStory | undefined = await StoryDataAccess.getDataAccess().updateID(initID, newID);
+    inResponse.json(story);
+})
 app.listen(port, () => { console.log("Server at: http://localhost:" + port) });
