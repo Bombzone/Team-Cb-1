@@ -5,7 +5,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import JoinRoom, { CreateRoom } from "./home";
 import { useEffect, useState } from "react";
 const App = () => { // displays page based on functions and url
-
 	const [uid, setUid] = useState("");
 	const [Name, setName] = useState("");
 	const [clickUid, setClickUid] = useState("");
@@ -19,12 +18,12 @@ const App = () => { // displays page based on functions and url
 		connection = new WebSocket(`ws://${window.location.host.split(":")[0]}:3030`);
 	}
 	useEffect(() => {
-		connection.onopen = () => {
+		  connection.onopen = () => {
 			console.log("connection opened to the server...");
 		};
 		// Handle error
 		connection.onerror = () => {
-			console.error("WS error");
+  	console.error("WS error");
 		};
 		// Handle server message
 		connection.onmessage = (inMessage: any) => {

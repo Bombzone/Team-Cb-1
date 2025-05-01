@@ -55,13 +55,13 @@ class StoryDataAccess {
 
         }
         return undefined
+
     }
 
     public async saveStory(story: UserStory): Promise<UserStory> {
         return await this.db
             .updateAsync({ _id: story._id }, story).then(() => {
-                console.log(story);
-                
+
                 return story;
             });
     }

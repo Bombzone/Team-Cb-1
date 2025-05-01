@@ -107,6 +107,7 @@ const Table = () => {
 }
 const CurrentQueue = (props: { sendMessage: any, storyQueue: UserStoryQueue; cards: Cards }) => { // returns middle section of Estimation page
     const [currentCards, setCards] = React.useState(props.cards);
+    let users = props.users
     useEffect(() => { // gets estimated stories
         fetch.get("cards").then((response) => {
             setCards(response.data);
@@ -137,7 +138,7 @@ const CurrentQueue = (props: { sendMessage: any, storyQueue: UserStoryQueue; car
                 <h3>Now estimating:</h3>
                 <h4 className="deleteParent"><Story story={currentStory} list={false} /></h4>
             </div>
-            <Table />
+            <Table users={users} />
             <ul>
                 <ListCards />
             </ul>
