@@ -210,7 +210,7 @@ const Story = (props: { story: UserStory | undefined; list: boolean }) => { // r
                 <li className="deleteParent" onDragOver={(e) => {
                     e.preventDefault();
                 }}>
-                    <div className="draggable" draggable id={"" + story.id} onDragStart={(e) => {
+                    <div className="draggable" draggable id={"" + story.storyNum} onDragStart={(e) => {
                         storyID = e.currentTarget.id
                     }} onDrop={(e) => {
                         fetch.post("setStoryID", [storyID, e.currentTarget.id])
