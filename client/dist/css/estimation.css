@@ -59,8 +59,6 @@
 .emptyPlayer {
     margin-top: 20px;
 }
-    
-/* Common Estimation Styles */
 
 li .estButton {
     font-size: 1.25rem;
@@ -83,7 +81,6 @@ li .estButton {
     resize: vertical;
     height: 100px;
     max-height: 40vh;
-    /* min-height: fit-content; */
     margin-left: 20px;
     margin-right: 20px;
     font-size: 1rem;
@@ -92,7 +89,6 @@ li .estButton {
 }
 .modal #storyName {
     resize: none;
-    /* min-height: 20px; */
     height: 40px;
     max-height: 50vh;
     margin-top: 10px;
@@ -110,7 +106,6 @@ li .estButton {
     color: navy;
     padding: 15px, 25px;
     border-radius: 4px;
-    /* text-align: center; */
     font-size: 25px;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -120,14 +115,12 @@ li .estButton {
 
 /* Body Styles */
 .popup-content {
-    /* background-color: transparent; */
     box-shadow: 3px 3px navy;
     border-radius: 25px;
 }
 
 #root {
     display: grid;
-    /* grid: 1fr 9fr / 1fr 1fr 2fr 2fr 1fr 1fr; */
     grid: 1fr 9fr/ 240px 1fr 240px;
     height: 100vh;
     background-color: white !important;
@@ -188,13 +181,11 @@ header>button {
     margin-right: 40px;
     font-style: oblique;
 }
-
 /* Styles For the Current Queue */
 #root > #currentQueue {
     position: relative;
     grid-row: 2;
     grid-column: 2;
-    /* width: 66vw; */
     display: grid;
     grid: auto / auto;
     box-shadow: inset rgba(0, 0, 128, 0.25) 0px 0px 10px;
@@ -206,11 +197,9 @@ header>button {
     top: 0;
     left: 0;
     width: 100%;
-    /* width: calc(); */
     display: grid;
     grid: auto / 1.3fr 1.75fr;
     height: 70px;
-    /* padding-bottom: 10px; */
     border-bottom: 1px navy solid;
     overflow-wrap: break-word;
     word-wrap: break-word; /* For legacy support */
@@ -221,8 +210,6 @@ header>button {
     grid-column: 1;
     font-weight: 300;
     line-height: 40px;
-    /* padding: 0px 20px; */
-    /* margin-left: 10vw; */
     margin-top: 10px;
     text-align: right;
     margin-right: 20px;
@@ -237,7 +224,6 @@ header>button {
     border-radius: 10px;
     margin-top: 10px;
     height: 1.5rem;
-    /* margin-right: 20vw; */
     box-shadow: rgba(0, 0, 128, 0.25) 2px 2px 5px;
     text-align: center  ;
 
@@ -249,11 +235,6 @@ header>button {
     grid-row: 3;
     grid-column: 1;
     height: 100px;
-    /* display: flexbox;
-    align-items: center; */
-    /* display: flex;
-    justify-content: center; */
-    /* gap: 30px;*/  
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
     justify-items: center;
@@ -307,7 +288,6 @@ header>button {
     height: 80vh;
     box-shadow: inset rgba(0, 0, 128, 0.25) 5px 0px 10px;
     overflow-y: scroll;
-    /* width: 17vw; */
 }
 
 h2 {
@@ -334,7 +314,6 @@ h2 {
 
 #storyQueue>ol>li {
     font-size: 1.2rem;
-    /* width: 8rem; */
     margin: 0px;
     margin-bottom: 20px; 
     box-shadow: rgba(0, 0, 128, 0.25) 2px 2px 5px;
@@ -380,19 +359,6 @@ h2 {
     left: 40px;
 }
 
-/* .liStory {
-    z-index: 999;
-    background-color: white;
-    border: 4px navy solid; 
-    color: navy;
-    padding: 100px, 80px;
-    border-radius: 4px;
-    font-size: 30px;
-    position: fixed;
-    bottom: 50px;
-    left: 70px; 
-} */
-
 #storyButton:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
@@ -407,7 +373,6 @@ h2 {
     height: 80vh;
     box-shadow: inset rgba(0, 0, 128, 0.25) -5px 0px 10px;
     overflow-y: scroll;
-    /* width: 17vw; */
 }
 
 #estimations>ul {
@@ -476,12 +441,8 @@ header>a:hover,
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-    
-    /* #root > #storyQueue {
-        grid-column: 1 / span 1;
-    } */
+
     #storyQueue h6, #storyQueue ol, #storyQueue li {
-        /* width: 100%; */
         padding-left: 0px;
         overflow-wrap: break-word;
         word-wrap: break-word; /* For legacy support */
@@ -489,20 +450,12 @@ header>a:hover,
         text-align: center;
         height: 50px;
         line-height: 50px;
-        /* padding: 0px 20px; */
         margin: 0px auto;
     }
 
     #storyQueue > ol, #estimations > ul { 
         text-align: center;
     }
-    /* #root > #currentQueue {
-        grid-column: 2 / span 1;
-    }
-
-    #root > #estimations {
-        grid-column: 3 / span 1;
-    } */
     #currentQueue>div>h4 {
         width: calc(80%);
     }
@@ -526,12 +479,7 @@ header>a:hover,
 @media only screen and (min-width: 1200px) {
     #root {
         display: grid;
-        /* grid: 1fr 9fr / 1fr 1fr 2fr 2fr 1fr 1fr; */
         grid: 1fr 9fr/ 320px 1fr 320px;
-    /* #root {
-        display: grid;
-        grid: 1fr 9fr / 1.25fr 1fr 2fr 2fr 1fr 1.25fr;
-    } */
     }
     #storyButton {
         bottom: 50px;
@@ -543,20 +491,6 @@ header>a:hover,
     #currentQueue>div>h4 {
         width: calc(50%);
     }
-    /* #root {
-        display: grid;
-        grid: 1fr 9fr / 2fr 1fr 3fr 3fr 1fr 2fr;
-    } */
-    /* #root > #storyQueue {
-        grid-column: 1;
-    }
-    #root > #currentQueue {
-        grid-column: 2 / span 1;
-    }
-    
-    #root > #estimations {
-        grid-column: 3;
-    } */
 
     #root > #currentQueue > ul {
         margin-top: 200px;
@@ -567,12 +501,7 @@ header>a:hover,
 @media only screen and (min-width: 1400px) {
     #root {
         display: grid;
-        /* grid: 1fr 9fr / 1fr 1fr 2fr 2fr 1fr 1fr; */
         grid: 1fr 9fr/ 400px 1fr 400px;
-    /* #root {
-        display: grid;
-        grid: 1fr 9fr / 1.25fr 1fr 2fr 2fr 1fr 1.25fr;
-    } */
     }
     #storyButton {
         left: 120px;
@@ -584,16 +513,6 @@ header>a:hover,
     #currentQueue>div>h4 {
         width: calc(40%);
     }
-    /* #root > #storyQueue {
-        grid-column: 1;
-    }
-    #root > #currentQueue {
-        grid-column: 2 / span 4;
-    }
-
-    #root > #estimations {
-        grid-column: 6;
-    } */
 }
 
 .story-small {

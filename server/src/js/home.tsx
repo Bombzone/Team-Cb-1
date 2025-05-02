@@ -47,13 +47,8 @@ const Form = (props: { sendMessage: any, type: string; }) => { // type is either
     } else {
         return null;
     }
-
-    let actionEvent = () => {
-        navigate(action)
-    }
     return (
-        <form onSubmit={(event) => {
-            // event.preventDefault(); // Testing method to prevent page refresh on submit
+        <form onSubmit={() => {
             localStorage.setItem("name", name);
             sendMessage(`addUser_${localStorage.getItem("UID")}_${name}`)
             navigate(action);
