@@ -89,8 +89,6 @@ wsServer.on("connection", (socket: WebSocket) => {
         switch (messageType) {
             case "voted":
                 const voteValue = messageParts[2];
-                console.log(uid);
-                console.log(voteValue);
                 // update user's status to have voted and thier vote number
                 users.forEach(user => {
                     if (user.getUID() === uid) {
@@ -191,7 +189,7 @@ app.post("/api/setStoryID", async (inRequest: Request, inResponse: Response) => 
     inResponse.type("json");
     const initID: number = inRequest.body[0];
     const newID: number = inRequest.body[1];
-    const story: UserStory | undefined = await StoryDataAccess.getDataAccess().updateID(initID, newID);
+    const story: UserStory | undefined = StoryDataAccess.getDataAccess().updateID(initID, newID);
     refreshClients();
     inResponse.json(story);
 });

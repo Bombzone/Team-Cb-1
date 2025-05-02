@@ -27,7 +27,6 @@ const App = () => { // displays page based on functions and url
 		};
 		// Handle server message
 		connection.onmessage = (inMessage: any) => {
-			console.log(inMessage.data);
 			// Split message into underscores
 			const messageParts: string[] = inMessage.data.split("_");
 			// index 0 is message type

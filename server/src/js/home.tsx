@@ -52,13 +52,12 @@ const Form = (props: { sendMessage: any, type: string; }) => { // type is either
         <form onSubmit={(event) => {
             // event.preventDefault(); // Testing method to prevent page refresh on submit
             localStorage.setItem("name", name);
-            console.log(localStorage.getItem("name"));
             sendMessage(`addUser_${localStorage.getItem("UID")}_${name}`)
             navigate(action);
         }}>
             <label htmlFor="name">{nameField}</label>
-            <input type="text" id="name" name="name" onChange={event => {name = event.target.value}}required/><br /><br />            <label htmlFor="roomnum">Room ID:</label>
-            <input type="text" id="roomnum" name="roomnum" required /><br /><br />
+            <input type="text" id="name" onChange={event => {name = event.target.value}}required/><br /><br />            <label htmlFor="roomnum">Room ID:</label>
+            <input type="text" id="roomnum" required /><br /><br />
             <button type="submit">{buttonText}</button>
         </form>
     );

@@ -150,12 +150,12 @@ const StoryDialogBox = () => {
     let description = "";
     return (
         <Popup trigger={<button id="storyButton">Add Story</button>} modal nested>
-            <form className="modal" onSubmit={() => {
+            <form className="modal" autoComplete="off" onSubmit={() => {
                 let story = new UserStory(name);
                 story.setDescription(description);
                 fetch.post("storyQueue", story)
             }}>
-                <input placeholder="Enter Story Name Here" name="storyName" id="storyName" onChange={event => { name = event.target.value }} required></input>
+                <input autoComplete="off" placeholder="Enter Story Name Here" name="storyName" id="storyName" onChange={event => { name = event.target.value }} required></input>
                 <textarea placeholder="Enter Story Description Here" name="description" id="storyDesc" onChange={event => { description = event.target.value }}></textarea>
                 <button type="submit" id="finishedButton">Submit</button>
             </form>
