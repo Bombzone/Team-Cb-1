@@ -81,8 +81,8 @@ wsServer.on("connection", (socket: WebSocket) => {
                 users.forEach((user) => {
                     client.send(`voted_${user.getUID()}_${user.getPoints()}`)
                 })
-                refreshClients()
             });
+            refreshClients()
             
             setTimeout(() => {
                 users.forEach((user) => {
@@ -121,7 +121,7 @@ wsServer.on("connection", (socket: WebSocket) => {
                         });
                         voted();
                     }
-                }, 500)
+                }, 750)
 
                 break;
             case "addUser":
