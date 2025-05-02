@@ -349,7 +349,7 @@ h2 {
     position: relative;
     width: calc(100%);
 }
-li svg, h4 svg {
+.deleteParent svg {
     position: absolute;
     top: 50%;
     bottom: 50%;
@@ -360,10 +360,10 @@ li svg, h4 svg {
     margin-right: 5px;
     
 }
-li:hover svg, h4:hover svg {
+.deleteParent:hover svg {
     fill: #dc3545;
 }
-li:hover svg:hover, h4:hover svg:hover {
+.deleteParent:hover svg:hover {
     border: #dc3545 solid 1px;
 }
 #storyButton {
