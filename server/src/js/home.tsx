@@ -1,6 +1,9 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import "../../../client/dist/css/index.css";
 const JoinRoom = (props: { sendMessage: any }) => { // index.html
+    let uid = localStorage.getItem("UID");
+    localStorage.clear();
+    localStorage.setItem("UID", uid!);
     let sendMessage = props.sendMessage;
     return (<>
         <div className="index">

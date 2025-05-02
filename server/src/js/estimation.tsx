@@ -6,7 +6,6 @@ import { NavLink, useNavigate } from "react-router-dom"
 import { Card, Cards } from "./Cards"
 import Popup from "reactjs-popup"
 import 'reactjs-popup/dist/index.css'
-import User from "./User"
 let storyQueue: UserStoryQueue = new UserStoryQueue();
 let estimations: UserStoryQueue = new UserStoryQueue();
 let cards: Cards = new Cards();
@@ -34,14 +33,15 @@ const Estimation = (props: { sendMessage: any} ) => { // returns Estimation page
                 navigate("/");
             }}>Leave</button>
         </header>
-        <CurrentQueue sendMessage={sendMessage} storyQueue={storyQueue} cards={cards} />        <StQueue storyQueue={storyQueue} />
+        <CurrentQueue sendMessage={sendMessage} storyQueue={storyQueue} cards={cards} />
+        <StQueue storyQueue={storyQueue} />
         <Estimations estimations={estimations} />
         <div id="bottomLine"></div>
     </>)
 }
 
 const Player = (props: { name: string, id: string, points: string}) => {
-    if(props.name == "") {
+    if(props.name == undefined) {
         return (
             <div className="player emptyPlayer" id={props.id}>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
@@ -64,13 +64,9 @@ const Player = (props: { name: string, id: string, points: string}) => {
 }
 const Table = () => {
     let average;
-    let name = localStorage.getItem("name");
     let players: string[][];
-    if(name != null){
-        players = [[name, ""], ["",""], ["",""], ["",""], ["",""], ["",""]]
-    } else {
-        players = [["", ""], ["",""], ["",""], ["",""], ["",""], ["",""]]
-    }
+    players = [[localStorage.getItem("user0")?.split("_").at(1)!, localStorage.getItem("user0")?.split("_").at(2)!], [localStorage.getItem("user1")?.split("_").at(1)!, localStorage.getItem("user1")?.split("_").at(2)!], [localStorage.getItem("user2")?.split("_").at(1)!, localStorage.getItem("user2")?.split("_").at(2)!], [localStorage.getItem("user3")?.split("_").at(1)!, localStorage.getItem("user3")?.split("_").at(2)!], [localStorage.getItem("user4")?.split("_").at(1)!, localStorage.getItem("user4")?.split("_").at(2)!], [localStorage.getItem("user5")?.split("_").at(1)!, localStorage.getItem("user5")?.split("_").at(2)!]]
+    
     let numPoints = 0;
     let totalPoints = 0;
     players.forEach((player, i) => {
@@ -78,7 +74,7 @@ const Table = () => {
         let playerPoints = localStorage.getItem("user" + i)?.split("_")[2]
         if (playerName) {
             player[0] = playerName
-            if (playerPoints) {
+            if (playerPoints && parseInt(playerPoints) >= 0) {
                 player[1] = playerPoints
                 totalPoints += parseInt(playerPoints);
                 numPoints++;
@@ -92,7 +88,7 @@ const Table = () => {
     }
     return (
         <>
-            <h4 id="avg">{average}</h4>
+            <h4 id="avg">{average ? average : "AVG"}</h4>
             <div id="players">
                 <Player name={players[0][0]} points={players[0][1]} id="player1" />
                 <Player name={players[1][0]} points={players[1][1]} id="player2" />
@@ -117,8 +113,6 @@ const CurrentQueue = (props: { sendMessage: any, storyQueue: UserStoryQueue; car
         })
     }, [])
     currentStory = storyQueue.findAt(0);
-    let avg: number;
-    let total = 0;
     let cardsList = cards.getCards();
     let sendMessage = props.sendMessage;
     cardsList.sort(function (a: any, b: any) { return a.cardValue - b.cardValue })
@@ -179,9 +173,7 @@ const StQueue = (props: { storyQueue: UserStoryQueue }) => { // returns the stor
             stories.push(<Story key={index} story={storyQueue.findAt(index)} list={true} />)
         }
         stories.push(<StoryDialogBox key={0} />)
-        // stories.push(<div key={0}><button id="storyButton" onClick={() => {
-        //     fetch.post("storyQueue", new UserStory("New story"))
-        // }}>Add Story</button></div>)
+        
         return stories
     }
     return (
@@ -282,7 +274,6 @@ const EstimationButton = (props: { sendMessage: any, card: Card }) => { // retur
     let sendMessage = props.sendMessage;
     const submit = () => {
         // change to websocket send message
-        // fetch.post("estimations", { value: props.card.getValue() });
         sendMessage(`voted_${localStorage.getItem("UID")}_${props.card.getValue()}`);
     }
     return (
