@@ -85,7 +85,6 @@ const App = () => { // displays page based on functions and url
 							users.push(new User(messageParts[1], messageParts[2]));
 						}
 					}
-
 					users.forEach((user, i) => {
 						if (i < 6) {
 							localStorage.setItem(`user${i}`, `${user.getUID()}_${user.getName()}_`)

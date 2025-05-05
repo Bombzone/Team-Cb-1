@@ -51,8 +51,6 @@ wsServer.on("connection", (socket: WebSocket) => {
         socket.send("ping");
         tm = setTimeout(() => {
             socket.close();
-            users = [];
-            refreshClients()
         }, 3000)
     };
     setInterval(ping, 60000);
@@ -159,7 +157,7 @@ wsServer.on("connection", (socket: WebSocket) => {
     // Create unique identifier to the client
     // construct connection message and return generated pid
     const message = `connected_${uid}`;
-
+    
     // Send message to client through socket
     socket.send(message);
     users.forEach((user, i) => {
