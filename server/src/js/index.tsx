@@ -2,9 +2,10 @@ import ReactDOM from "react-dom/client";
 import Estimation from "./estimation";
 import "../../../client/dist/css/common.css"
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import JoinRoom, { CreateRoom } from "./home";
+// import { CreateRoom } from "./home";
 import { useEffect, useState } from "react";
 import User from "./User";
+import JoinRoom from "./home";
 const App = () => { // displays page based on functions and url
 	const [uid, setUid] = useState("");
 	const [Name, setName] = useState("");
@@ -131,7 +132,7 @@ const App = () => { // displays page based on functions and url
 		<BrowserRouter>
 			<Routes>
 				<Route path="/" element={<JoinRoom sendMessage={sendMessage} />} />
-				<Route path="/create-room" element={<CreateRoom sendMessage={sendMessage} />} />
+				{/* <Route path="/create-room" element={<CreateRoom sendMessage={sendMessage} />} /> */}
 				<Route path="/estimate" element={<Estimation sendMessage={sendMessage} />} />
 			</Routes>
 		</BrowserRouter>

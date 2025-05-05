@@ -52,6 +52,7 @@ wsServer.on("connection", (socket: WebSocket) => {
         tm = setTimeout(() => {
             socket.close();
             users = [];
+            refreshClients()
         }, 3000)
     };
     setInterval(ping, 60000);
